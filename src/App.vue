@@ -1,3 +1,4 @@
+<!-- HTML part -->
 <template>
   <div id="app">
     <div class="todo-wrapper">
@@ -16,41 +17,30 @@
 <script>
 import TodoList from '@/components/TodoList'
 import TodoCreate from '@/components/TodoCreate'
+
+import store from '@/store'
+
 export default {
   name: 'app',
   components: {
     TodoList, TodoCreate
   },
+  created(){
+  this.todos = store.dispatch('initStore')
+  },
   data() {
     return {
-      todos: [
-        {
-          _id: '1',
-          title: 'Walk the dog',
-          description: 'Go to forrest near the Zoo'
-        },
-        {
-          _id: '2',
-          title: 'Buy a bread',
-          description: 'Whole grain bread would be good'
-        },
-        {
-          _id: '3',
-          title: 'Learn Programming',
-          description: 'Preferable Tomorrow!'
-        }
-      ]
+      todos: store.state.todos
     }
   },
-  // This function is run automaticaly by VUE framework
- 
   methods: {
     createTodo(todo) {
-      this.todos.push(todo)
+      store.dispatch('createTodo', todo)
     }
   }
 }
 </script>
+
 
 <style> /*lang ="scss" agregar a style para usar scss;*/
 
@@ -58,12 +48,18 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: #502c4a;
   margin-top: 60px;
 }
 
+
+.app-error{
+  color:rgb(241, 13, 13);
+  
+}
 .app-form{
-    color:slateblue;
+    color:rgb(35, 31, 59);
+   
   }
   label{
     display:block;
@@ -72,60 +68,61 @@ export default {
     padding: 5px;
   }
   .form-input{
-    padding: 5px;
+    padding: 10px;
     font-size:17px;
     margin:5px;
     width: 300px;
   }
 
   .form-control{
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    }
+  .form-control-last{
+    margin-bottom: 0px;
   }
 
-.is-primary{
-  background-color:rgb(59, 184, 59) !important ;
-}
-.app-button{
-  font-size: 20px;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: #795899;
-  color:white;
-  font-weight: bold;  
+  .is-primary{
+    background-color:rgb(59, 184, 59) !important ;
+  }
+  .is-warning{
+    background-color:#ffa753 !important;
+    margin-right: 10px;
+  }
+  .is-danger{
+    background-color:#f83838 !important;
+  } 
+  .app-button{
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #4a1480;
+    color:white;
+    font-weight: bold; 
+    }
+  .app-button:hover{
+    cursor:pointer;
+  }
+  .todo-create-btn-container{
+    margin:10px; /* queda de 20px porque en el boton ya le habia agregado 10px */ 
+  }
+  .todo-wrapper {
+    display:flex;
+    justify-content: center;
+    width: 100%;
+  }
+  .todo-container {
+    display:flex;
+    flex-direction: column;
+    background-color:#afabaf;
+    margin:0 auto;
+    width:400px;
+    min-height: 200px;
+    border-radius: 10px;
+  }
+  .todo-list {
+    background-color: rgb(235, 55, 55);
+  }
  
-  }
-.app-button:hover{
-  cursor:pointer;
-}
-
-
-
-
-
-.todo-create-btn-container{
-  margin:10px; /* queda de 20px porque en el boton ya le habia agregado 10px */ 
-
-}
-
-
-.todo-wrapper {
-  display:flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.todo-container {
-  display:flex;
-  flex-direction: column;
-  background-color:#d8d7d7;
-  margin:0 auto;
-  width:400px;
-  min-height: 400px;
-  border-radius: 10px;
-}
-.todo-list {
-  background-color: rgb(235, 55, 55);
-}
 
 
 /** ASI QUEDARIA ESCRITO EN SCSS, 

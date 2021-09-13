@@ -8,7 +8,7 @@
     <div class="modal" :class="{'is-active': isOpen}">
       <div class="modal-content">
         <span @click="close" class="close">&times;</span>
-        <slot />
+        <!-- <slot /> -->
       </div>
     </div>
   </div>
